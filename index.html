@@ -389,7 +389,7 @@ dialog.modal[open] { animation: pageIn .3s ease both; }
   <div class="card p-8 sm:p-10" data-reveal><h1 class="text-4xl font-extrabold mb-3">Me contacter</h1>
    <p class="text-lg mb-6">Une question sur mon parcours, mes réalisations ou une opportunité de stage ou d'alternance ? Écris-moi.</p>
    <ul id="coordonnees" class="space-y-4 mb-7"></ul>
-   <a data-cv download href="assets/documents/cv.pdf" class="btn btn-primary"><i data-lucide="download" aria-hidden="true"></i>Télécharger mon CV</a></div>
+   <a data-cv download href="assets/documents/MON_CV.pdf" class="btn btn-primary"><i data-lucide="download" aria-hidden="true"></i>Télécharger mon CV</a></div>
   <div class="card p-8 sm:p-10" data-reveal>
    <form id="form" novalidate class="grid gap-4">
     <div class="field"><label for="nom">Nom</label><input id="nom" name="nom" autocomplete="name" required><p class="err" id="err-nom" role="alert"></p></div>
@@ -416,14 +416,14 @@ dialog.modal[open] { animation: pageIn .3s ease both; }
 
 window.CONFIG = {
   prenom: 'Esli',
-  nom: '',                       // ← ton nom de famille
+  nom: 'LOGBO',                       // ← ton nom de famille
   titre: 'Étudiante en BTS SIO, option SISR',
   ecole: 'INGETIS Paris',
-  email: '',                     // ← ton adresse e-mail
-  linkedin: '',                  // ← https://www.linkedin.com/in/...
-  github: '',                    // ← https://github.com/...
+  email: 'eslimariemanuellalogbo@gmail.com',                     // ← ton adresse e-mail
+  linkedin: 'www.linkedin.com/in/esli-m-logbo-884029334',                  // ← https://www.linkedin.com/in/...
+  github: 'https://github.com/eslimariemanuellalogbo-lang',                    // ← https://github.com/...
   formEndpoint: '',              // ← (facultatif) URL Formspree pour envoyer le formulaire sans ouvrir la messagerie
-  cv: 'assets/documents/cv.pdf',
+  cv: 'assets/documents/MON_CV.pdf',
   tableauPdf: 'assets/documents/tableau-synthese.pdf',
   tableauXlsx: 'assets/documents/tableau-synthese-vierge.xlsx',
   photo: 'assets/images/photo-esli.jpg'
@@ -441,13 +441,7 @@ window.DATA = {
 
   /* ---------- Expériences (frise de l'accueil) ---------- */
   experiences: [
-    { id: 'eslsca', lieu: 'ESLSCA Business School', periode: 'Mars – juin 2025', type: 'Stage',
-      resume: 'Intervention sur le matériel informatique et la bureautique.',
-      missions: [
-        { t: 'Intervention sur des ordinateurs HP EliteBook', s: 'confirm' },
-        { t: 'Intervention sur des imprimantes réseau HP LaserJet', s: 'confirm' },
-        { t: 'Utilisation des outils Microsoft Office', s: 'confirm' }
-      ] },
+   
     { id: 'jtb', lieu: 'JTB', periode: '29 juin – 31 juillet 2026', type: 'Expérience professionnelle',
       resume: 'Tâches administratives et suivi par tableaux.',
       missions: [
