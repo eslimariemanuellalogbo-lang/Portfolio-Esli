@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accueil · Esli · Portfolio BTS SIO SISR</title>
+<meta name="description" content="Portfolio d'Esli, étudiante en BTS SIO option SISR : parcours, stages, épreuves E5 et E6, projets, veille technologique et certifications.">
+<meta name="theme-color" content="#0E5A6B">
+<meta property="og:title" content="Portfolio BTS SIO SISR · Esli">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230E5A6B'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-weight='700' font-size='34' fill='white'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+/* ==========================================================
+   Portfolio BTS SIO SISR · feuille de style commune
+   Palette : bleu pétrole, bleu ciel, blanc cassé, violet doux
+   ========================================================== */
+:root {
+  --petrole: #0E5A6B; --petrole-d: #0A3F4C;
+  --ciel: #8FD0EC;    --ciel-l: #E3F4FB;
+  --creme: #F8F7F2;
+  --violet: #9C8DE0;  --violet-l: #ECE8FB;
+  --lum: #2EE6C5;     /* touche lumineuse pour les éléments interactifs */
+  --ink: #16313A;     --muted: #4F6870;
+  --ligne: #DCE7EA;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+body { font-family: 'Nunito Sans', system-ui, sans-serif; background: var(--creme); color: var(--ink); animation: pageIn .55s ease both; }
+h1, h2, h3, h4 { font-family: 'Sora', system-ui, sans-serif; letter-spacing: -.015em; color: var(--petrole-d); }
+/* Fond : halos très doux */
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(40rem 28rem at 8% 2%, rgba(143,208,236,.35), transparent 70%),
+              radial-gradient(36rem 26rem at 95% 18%, rgba(156,141,224,.22), transparent 70%),
+              radial-gradient(34rem 24rem at 40% 100%, rgba(46,230,197,.10), transparent 70%); }
+
+/* Transitions de page */
+@keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+body.leaving { opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .25s ease; }
+
+/* Barre de progression de lecture */
+#progress { position: fixed; top: 0; left: 0; height: 4px; width: 0; z-index: 100; background: linear-gradient(90deg, var(--lum), var(--ciel), var(--violet)); }
+
+/* Apparition au défilement (activée seulement si JS actif) */
+.js [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; transition-delay: var(--d, 0s); }
+.js [data-reveal].in { opacity: 1; transform: none; }
+
+/* Cartes */
+.card { background: #fff; border-radius: 1.5rem; border: 1px solid var(--ligne); box-shadow: 0 1px 2px rgba(14,90,107,.05), 0 14px 34px -20px rgba(14,90,107,.35); }
+.card-hover { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.card-hover:hover { transform: translateY(-5px); border-color: var(--ciel); box-shadow: 0 2px 4px rgba(14,90,107,.06), 0 24px 44px -20px rgba(14,90,107,.45); }
+
+/* Boutons */
+.btn { display: inline-flex; align-items: center; gap: .55rem; padding: .75rem 1.3rem; border-radius: 999px; font-weight: 700; cursor: pointer; border: 0; position: relative; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(.98); }
+.btn-primary { background: linear-gradient(135deg, var(--petrole), #1B7C90); color: #fff; box-shadow: 0 10px 22px -10px rgba(14,90,107,.7); }
+.btn-primary:hover { box-shadow: 0 14px 26px -10px rgba(14,90,107,.8), 0 0 0 3px rgba(46,230,197,.35); }
+.btn-ghost { background: #fff; color: var(--petrole-d); box-shadow: inset 0 0 0 1.5px var(--ciel); }
+.btn-ghost:hover { background: var(--ciel-l); }
+.btn i, .btn svg { width: 1.1rem; height: 1.1rem; }
+
+/* Puces et statuts */
+.chip { display: inline-flex; align-items: center; gap: .3rem; padding: .22rem .75rem; border-radius: 999px; font-size: .78rem; font-weight: 700; background: var(--ciel-l); color: var(--petrole); }
+.chip-violet { background: var(--violet-l); color: #5B4BB0; }
+.st-realise { background: #D9F7EE; color: #0B6B53; }
+.st-observe { background: var(--violet-l); color: #5B4BB0; }
+.st-decouvert { background: var(--ciel-l); color: var(--petrole); }
+.st-confirm { background: #FFF1B8; color: #6B5300; }
+
+/* Zones à compléter, volontairement visibles */
+.todo { background: #FFF4C2; color: #6B5300; padding: 0 .4rem; border-radius: .35rem; border: 1px dashed #D9B93A; font-size: .9em; font-weight: 600; }
+
+/* Navigation */
+.nav-link { padding: .45rem .85rem; border-radius: 999px; font-weight: 700; font-size: .93rem; color: var(--muted); transition: background .2s, color .2s; }
+.nav-link:hover { background: var(--ciel-l); color: var(--petrole-d); }
+.nav-link[aria-current="page"] { background: var(--petrole); color: #fff; }
+:focus-visible { outline: 3px solid var(--lum); outline-offset: 2px; border-radius: .5rem; }
+.skip { position: absolute; left: -999px; top: .5rem; background: #fff; padding: .5rem 1rem; border-radius: .5rem; z-index: 200; }
+.skip:focus { left: .5rem; }
+
+/* Icônes en pastille */
+.ico { width: 2.9rem; height: 2.9rem; border-radius: 1rem; display: grid; place-items: center; background: linear-gradient(135deg, var(--ciel-l), var(--violet-l)); color: var(--petrole); flex: none; }
+.ico i, .ico svg { width: 1.4rem; height: 1.4rem; }
+
+/* Zones visuelles avec image facultative */
+.visuel { position: relative; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, var(--ciel-l), var(--violet-l)); color: var(--petrole); font-family: 'Sora', sans-serif; font-weight: 800; }
+.visuel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Frise chronologique */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ""; position: absolute; left: .55rem; top: .4rem; bottom: .4rem; width: 3px; border-radius: 3px; background: linear-gradient(var(--lum), var(--ciel), var(--violet)); }
+.t-item { position: relative; margin-bottom: 1.5rem; }
+.t-item::before { content: ""; position: absolute; left: -2.05rem; top: 1.5rem; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: #fff; border: 4px solid var(--petrole); box-shadow: 0 0 0 4px var(--ciel-l); }
+
+/* Onglets */
+.tab { padding: .7rem 1.2rem; border-radius: 999px; font-weight: 700; background: #fff; color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--ligne); cursor: pointer; transition: all .2s; }
+.tab:hover { color: var(--petrole-d); box-shadow: inset 0 0 0 1.5px var(--ciel); }
+.tab[aria-selected="true"] { background: var(--petrole); color: #fff; box-shadow: 0 8px 18px -8px rgba(14,90,107,.7); }
+.panel[hidden] { display: none; }
+.panel:not([hidden]) { animation: pageIn .4s ease both; }
+
+/* Accordéons */
+details.acc > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: .8rem; }
+details.acc > summary::-webkit-details-marker { display: none; }
+details.acc .chev { transition: transform .25s; margin-left: auto; }
+details.acc[open] .chev { transform: rotate(180deg); }
+
+/* Filtres */
+.filter { padding: .45rem 1rem; border-radius: 999px; font-weight: 700; font-size: .9rem; background: #fff; color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--ligne); cursor: pointer; transition: all .2s; }
+.filter:hover { box-shadow: inset 0 0 0 1.5px var(--ciel); color: var(--petrole-d); }
+.filter[aria-pressed="true"] { background: var(--violet); color: #fff; box-shadow: none; }
+
+/* Fenêtre modale */
+dialog.modal { border: 0; border-radius: 1.75rem; padding: 0; width: min(54rem, 94vw); max-height: 90vh; background: #fff; box-shadow: 0 40px 80px -30px rgba(10,63,76,.6); }
+dialog.modal::backdrop { background: rgba(10,63,76,.45); backdrop-filter: blur(4px); }
+dialog.modal[open] { animation: pageIn .3s ease both; }
+.modal-head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.5rem; background: #fff; border-bottom: 1px solid var(--ligne); }
+.modal-body { padding: 1.5rem; overflow: auto; max-height: calc(90vh - 4.5rem); }
+
+/* Visionneuse de PDF */
+.viewer-frame { width: 100%; height: 70vh; border: 0; border-radius: 1rem; background: var(--ciel-l); }
+
+/* Barres de niveau */
+.bar { height: .6rem; border-radius: 999px; background: var(--ciel-l); overflow: hidden; }
+.bar > span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--lum), var(--ciel)); width: 0; transition: width 1.1s ease; }
+.bar-empty { background: repeating-linear-gradient(45deg, #FFF4C2, #FFF4C2 6px, #fff 6px, #fff 12px); border: 1px dashed #D9B93A; }
+
+/* Formulaire */
+.field label { display: block; font-weight: 700; margin-bottom: .35rem; }
+.field input, .field textarea { width: 100%; padding: .8rem 1rem; border-radius: 1rem; border: 1.5px solid var(--ligne); background: #fff; font: inherit; transition: border-color .2s, box-shadow .2s; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--petrole); box-shadow: 0 0 0 4px rgba(143,208,236,.45); }
+.field [aria-invalid="true"] { border-color: #D14B6A; }
+.field .err { color: #B4304F; font-size: .85rem; margin-top: .3rem; min-height: 1.1rem; }
+
+/* Chargement */
+.loader { width: 1.4rem; height: 1.4rem; border-radius: 50%; border: 3px solid var(--ciel-l); border-top-color: var(--petrole); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Flottement discret du hero */
+@keyframes float { 50% { transform: translateY(-8px); } }
+.float { animation: float 5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* Vues (pages internes d'un seul fichier) */
+.view[hidden] { display: none; }
+.view:not([hidden]) { animation: pageIn .5s ease both; }
+#main:focus { outline: none; }
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<div id="progress" aria-hidden="true"></div>
+<div id="top"></div>
+<div id="site-header"></div>
+<main id="main" tabindex="-1">
+<div class="view" id="view-home" data-view="home">
+
+<section class="max-w-6xl mx-auto px-4 pt-10 pb-6">
+ <div class="grid lg:grid-cols-5 gap-6 items-center">
+  <div class="lg:col-span-3 card p-8 sm:p-12" data-reveal>
+   <p class="chip mb-4"><i data-lucide="sparkles" aria-hidden="true"></i>Portfolio · Session 2027</p>
+   <h1 class="text-5xl sm:text-7xl font-extrabold leading-none"><span data-fullname>Esli</span></h1>
+   <p class="mt-4 text-xl sm:text-2xl font-bold text-[color:var(--violet)]" style="font-family:Sora">Étudiante en deuxième année de BTS SIO, option SISR</p>
+   <p class="mt-4 text-lg leading-relaxed max-w-xl">Je me forme à installer, administrer et sécuriser les systèmes et les réseaux d'une organisation. Ce portfolio présente mon parcours, mes stages, mes réalisations et ma veille. <span class="todo">ta phrase de présentation personnelle</span></p>
+   <div class="mt-7 flex flex-wrap gap-3">
+    <a href="#parcours-section" class="btn btn-primary"><i data-lucide="compass" aria-hidden="true"></i>Découvrir mon parcours</a>
+    <a data-cv download href="assets/documents/MON_CV.pdf" class="btn btn-ghost"><i data-lucide="download" aria-hidden="true"></i>Télécharger mon CV</a>
+   </div>
+  </div>
+  <div class="lg:col-span-2 flex justify-center" data-reveal>
+   <div class="relative float">
+    <div id="hero-photo" class="visuel w-60 h-60 sm:w-72 sm:h-72 rounded-full ring-8 ring-white shadow-2xl text-7xl"></div>
+    <span class="chip absolute -left-3 top-8 shadow-md bg-white"><i data-lucide="server" aria-hidden="true"></i>Systèmes</span>
+    <span class="chip chip-violet absolute -right-2 top-24 shadow-md bg-white"><i data-lucide="network" aria-hidden="true"></i>Réseaux</span>
+    <span class="chip absolute left-4 -bottom-2 shadow-md bg-white"><i data-lucide="shield-check" aria-hidden="true"></i>Cybersécurité</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="presentation">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Qui suis-je ?</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">Mon profil, mes motivations et mes objectifs.</p></div>
+ <div class="grid md:grid-cols-3 gap-5 mt-6">
+  <article class="card p-6" data-reveal><span class="ico mb-3"><i data-lucide="user-round" aria-hidden="true"></i></span><h3 class="text-lg font-bold mb-2">Mon profil</h3><p>Étudiante en BTS SIO option SISR à INGETIS, Paris. <span class="todo">2 à 3 phrases sur toi, écrites avec tes mots</span></p></article>
+  <article class="card p-6" data-reveal><span class="ico mb-3"><i data-lucide="flame" aria-hidden="true"></i></span><h3 class="text-lg font-bold mb-2">Mes motivations</h3><p><span class="todo">pourquoi les systèmes et réseaux t'intéressent</span></p></article>
+  <article class="card p-6" data-reveal><span class="ico mb-3"><i data-lucide="flag" aria-hidden="true"></i></span><h3 class="text-lg font-bold mb-2">Mes objectifs</h3><p><span class="todo">poursuite d'études, métier visé</span></p></article>
+ </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="bts">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Le BTS SIO, c'est quoi ?</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">Le BTS Services Informatiques aux Organisations se prépare en deux ans. Il forme des techniciens supérieurs qui gèrent le système d'information d'une organisation. Il propose deux options.</p></div>
+ <div class="grid md:grid-cols-2 gap-6 mt-6">
+  <article class="card p-7 ring-2 ring-[color:var(--lum)]" data-reveal><span class="chip mb-3"><i data-lucide="check" aria-hidden="true"></i>Mon option</span>
+   <h3 class="text-2xl font-bold mb-2">SISR · Solutions d'Infrastructure, Systèmes et Réseaux</h3>
+   <p class="mb-3">Installer, configurer, superviser et sécuriser les serveurs, les réseaux et les services qui permettent à une organisation de fonctionner.</p>
+   <ul class="list-disc pl-5 text-[0.95rem] space-y-1"><li>Systèmes : Windows Server, Active Directory, Linux</li><li>Réseaux : routage, commutation, VLAN</li><li>Support, supervision et cybersécurité</li></ul></article>
+  <article class="card p-7" data-reveal><span class="chip chip-violet mb-3">L'autre option</span>
+   <h3 class="text-2xl font-bold mb-2">SLAM · Solutions Logicielles et Applications Métiers</h3>
+   <p class="mb-3">Concevoir, développer et maintenir des applications adaptées aux besoins métier d'une organisation.</p>
+   <ul class="list-disc pl-5 text-[0.95rem] space-y-1"><li>Programmation et bases de données</li><li>Développement web et applications</li><li>Tests, déploiement et maintenance d'applications</li></ul></article>
+ </div>
+ <div class="card p-6 mt-6" data-reveal><h3 class="text-xl font-bold mb-2">Pourquoi j'ai choisi SISR</h3><p><span class="todo">ton choix, avec tes propres mots : ce qui t'attire dans l'infrastructure et les réseaux</span></p>
+  <p class="text-sm mt-3 text-[color:var(--muted)]">Différence en une phrase : SISR s'occupe de l'infrastructure qui fait tourner les services, SLAM s'occupe des applications qui y tournent.</p></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="parcours-section">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Mon parcours académique</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">Mes formations, mes diplômes et ce que j'y apprends.</p></div>
+ <div id="parcours" class="grid md:grid-cols-3 gap-5 mt-6"></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="cv">
+ <div class="card p-8 sm:p-10" data-reveal>
+  <div class="flex flex-wrap items-center justify-between gap-5">
+   <div><h2 class="text-3xl font-extrabold mb-2">Mon CV à jour</h2><p class="text-lg max-w-xl">Accessible à tous les visiteurs : à télécharger ou à consulter directement ici.</p></div>
+   <a data-cv download href="assets/documents/MON_CV.pdf" class="btn btn-primary"><i data-lucide="download" aria-hidden="true"></i>Télécharger le CV (PDF)</a>
+  </div>
+  <div class="viewer mt-4" data-src="assets/documents/MON_CV.pdf" data-title="Aperçu du CV">
+ <button class="btn btn-ghost viewer-toggle" aria-expanded="false" data-open="Visualiser le CV dans la page" data-close="Masquer l'aperçu"><i data-lucide="eye" aria-hidden="true"></i><span>Visualiser le CV dans la page</span></button>
+ <div class="viewer-zone mt-3" hidden></div></div>
+ </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="experiences">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Mes expériences professionnelles</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">Une frise de mes stages et expériences, avec le statut de chaque mission.</p></div>
+ <div id="timeline" class="mt-6"></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="entreprises-section">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Les structures qui m'ont accueillie</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">Une présentation de chaque lieu de stage ou d'expérience.</p></div>
+ <div id="entreprises" class="grid md:grid-cols-3 gap-6 mt-6"></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="etablissement">
+ <div class="card overflow-hidden grid md:grid-cols-5" data-reveal>
+  <div class="visuel md:col-span-2 min-h-[14rem] text-4xl"><span>INGETIS</span><img src="assets/images/ecole-ingetis.jpg" alt="Établissement INGETIS à Paris" loading="lazy" onerror="this.remove()"></div>
+  <div class="md:col-span-3 p-8 sm:p-10">
+   <h2 class="text-3xl font-extrabold mb-3">Mon établissement : INGETIS, Paris</h2>
+   <dl class="space-y-2">
+    <div><dt class="inline font-bold">Présentation : </dt><dd class="inline"><span class="todo">présentation de l'école, avec tes mots</span></dd></div>
+    <div><dt class="inline font-bold">Formation suivie : </dt><dd class="inline">BTS SIO, option SISR (septembre 2025 – 2027)</dd></div>
+    <div><dt class="inline font-bold">Compétences enseignées : </dt><dd class="inline">les trois blocs du BTS SIO SISR, en plus des enseignements généraux.</dd></div>
+   </dl>
+   <ul class="mt-4 grid gap-2 text-[0.95rem]">
+    <li class="flex gap-2"><span class="chip">Bloc 1</span>Support et mise à disposition de services informatiques</li>
+    <li class="flex gap-2"><span class="chip">Bloc 2</span>Administration des systèmes et des réseaux</li>
+    <li class="flex gap-2"><span class="chip">Bloc 3</span>Cybersécurité des services informatiques</li></ul>
+  </div>
+ </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="competences-section">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Aperçu de mes compétences</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">Les domaines que je pratique. Les niveaux sont à évaluer honnêtement : la barre jaune signale un niveau non renseigné.</p></div>
+ <div id="competences" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6"></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-10" id="projets-section">
+ <div class="flex flex-wrap items-end justify-between gap-4"><div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Mes projets en un coup d'œil</h2></div><a href="#projets" class="btn btn-primary"><i data-lucide="layout-grid" aria-hidden="true"></i>Voir tous les projets</a></div>
+ <div id="apercu-projets" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-6"></div>
+</section>
+
+</div>
+<div class="view" id="view-e5" data-view="e5" hidden>
+
+<section class="max-w-6xl mx-auto px-4 pt-10 pb-4">
+ <div class="card p-8 sm:p-10" data-reveal><span class="chip mb-3">Production et fourniture de services informatiques</span>
+  <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Épreuve E5</h1>
+  <p class="text-lg max-w-3xl">L'épreuve E5 évalue ma capacité à répondre aux besoins d'une organisation en assurant la production et la fourniture de services informatiques. Elle prend la forme d'une présentation orale de 30 minutes à partir de mon portfolio : le jury évalue les compétences du référentiel à travers les réalisations listées dans mon tableau de synthèse.</p></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-8" id="competences-e5">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Les compétences évaluées</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">Six compétences du référentiel, reprises du tableau de synthèse.</p></div>
+ <div id="e5-competences" class="grid md:grid-cols-2 gap-4 mt-6"></div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-8" id="activites">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Mes activités et mes acquis</h2></div>
+ <div class="grid md:grid-cols-2 gap-5 mt-6">
+  <article class="card p-6" data-reveal><h3 class="font-bold text-lg mb-2">Activités réalisées</h3><p><span class="todo">activités menées en stage et en formation</span></p></article>
+  <article class="card p-6" data-reveal><h3 class="font-bold text-lg mb-2">Compétences acquises</h3><p><span class="todo">ce que tu sais faire maintenant</span></p></article>
+  <article class="card p-6" data-reveal><h3 class="font-bold text-lg mb-2">Situations rencontrées</h3><p><span class="todo">incidents, demandes, contraintes</span></p></article>
+  <article class="card p-6" data-reveal><h3 class="font-bold text-lg mb-2">Preuves associées</h3><p><span class="todo">captures, procédures, documents</span></p></article>
+ </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-8" id="tableau">
+ <div class="card p-8 sm:p-10 bg-gradient-to-br from-white to-[color:var(--ciel-l)]" data-reveal>
+  <h2 class="text-3xl font-extrabold mb-2">Mon tableau de synthèse</h2>
+  <p class="text-lg max-w-3xl mb-5">Le tableau recense mes réalisations (en formation et en milieu professionnel) et les relie aux compétences évaluées. Le fichier actuel est le modèle vierge : remplace <code>assets/documents/tableau-synthese.pdf</code> par ton tableau officiel complété, sans rien changer d'autre.</p>
+  <div class="flex flex-wrap gap-3">
+   <a class="btn btn-primary" href="assets/documents/tableau-synthese.pdf" download><i data-lucide="download" aria-hidden="true"></i>Télécharger le tableau (PDF)</a>
+   <a class="btn btn-ghost" href="assets/documents/tableau-synthese-vierge.xlsx" download><i data-lucide="table" aria-hidden="true"></i>Version Excel vierge</a>
+  </div>
+  <div class="viewer mt-4" data-src="assets/documents/tableau-synthese.pdf" data-title="Aperçu du tableau de synthèse">
+ <button class="btn btn-ghost viewer-toggle" aria-expanded="false" data-open="Visualiser le tableau dans la page" data-close="Masquer l'aperçu"><i data-lucide="eye" aria-hidden="true"></i><span>Visualiser le tableau dans la page</span></button>
+ <div class="viewer-zone mt-3" hidden></div></div>
+ </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-8" id="realisations">
+ <div data-reveal><h2 class="text-3xl sm:text-4xl font-extrabold mb-2">Mes réalisations</h2><p class="text-lg max-w-3xl text-[color:var(--muted)]">En milieu professionnel et en formation. Chaque fiche suit les huit rubriques attendues : titre, contexte, objectif, missions, compétences, outils, résultat, preuves.</p></div>
+ <div id="e5-realisations" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6"></div>
+</section>
+
+</div>
+<div class="view" id="view-e6" data-view="e6" hidden>
+
+<section class="max-w-6xl mx-auto px-4 pt-10 pb-4">
+ <div class="card p-8 sm:p-10" data-reveal><span class="chip chip-violet mb-3">Administration des systèmes et des réseaux · cybersécurité</span>
+  <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Épreuve E6</h1>
+  <p class="text-lg max-w-3xl">Je présente deux situations professionnelles vécues en formation ou en stage : une sur le réseau, une sur les systèmes. Chaque situation suit les mêmes rubriques, du contexte jusqu'à la documentation technique téléchargeable. <span class="todo">remplace les rubriques par tes vraies situations</span></p></div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-8">
+ <div id="e6-tabs" role="tablist" aria-label="Situations professionnelles" class="flex flex-wrap gap-3 mb-6"></div>
+ <div id="e6-panels"></div>
+</section>
+
+</div>
+<div class="view" id="view-projets" data-view="projets" hidden>
+
+<section class="max-w-6xl mx-auto px-4 pt-10 pb-4">
+ <div class="card p-8 sm:p-10" data-reveal><h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Mes projets informatiques</h1>
+  <p class="text-lg max-w-3xl">Les projets réalisés pendant ma formation, classés par domaine. Chaque projet se consulte individuellement, avec son contexte, son architecture, ses difficultés et sa documentation.</p></div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-8">
+ <div id="filtres-projets" class="flex flex-wrap gap-2 mb-6" role="group" aria-label="Filtrer par catégorie"></div>
+ <div id="projets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+ <div id="projets-vide" hidden class="card p-8 text-center"><p class="font-bold text-lg">Aucun projet dans cette catégorie pour l'instant.</p><p><span class="todo">ajoute un projet dans js/data.js</span></p></div>
+</section>
+
+</div>
+<div class="view" id="view-veille" data-view="veille" hidden>
+
+<section class="max-w-6xl mx-auto px-4 pt-10 pb-4">
+ <div class="card p-8 sm:p-10" data-reveal><h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Veille technologique et juridique</h1>
+  <p class="text-lg max-w-3xl">Je suis l'actualité de mon domaine, puis j'étudie ce que disent le RGPD, la CNIL et l'ANSSI à son sujet.</p></div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-8">
+ <div class="grid md:grid-cols-2 gap-5">
+  <article class="card p-6" data-reveal><span class="ico mb-3"><i data-lucide="search" aria-hidden="true"></i></span><h2 class="text-xl font-bold mb-2">Qu'est-ce que la veille technologique ?</h2>
+   <p>La veille technologique consiste à collecter, trier et analyser régulièrement des informations techniques pour rester à jour face aux évolutions de son domaine (nouvelles menaces, correctifs, outils, réglementations).</p></article>
+  <article class="card p-6" data-reveal><span class="ico mb-3"><i data-lucide="route" aria-hidden="true"></i></span><h2 class="text-xl font-bold mb-2">Ma méthodologie</h2>
+   <ul class="space-y-1.5 text-[0.95rem]"><li><strong>Sources :</strong> <span class="todo">CERT-FR, CNIL, ANSSI, sites spécialisés…</span></li><li><strong>Outils :</strong> <span class="todo">agrégateur RSS, alertes…</span></li><li><strong>Fréquence :</strong> <span class="todo">ex. un créneau par semaine</span></li><li><strong>Mots-clés :</strong> <span class="todo">à compléter</span></li></ul></article>
+ </div>
+ <div class="card p-6 mt-5" data-reveal><h2 class="text-xl font-bold mb-3">Trois autorités de référence</h2>
+  <div class="grid md:grid-cols-3 gap-4 text-[0.95rem]">
+   <div><span class="chip mb-2">RGPD</span><p>Règlement européen sur la protection des données personnelles : il crée des <strong>obligations légales</strong>.</p></div>
+   <div><span class="chip chip-violet mb-2">CNIL</span><p>Autorité française de protection des données : elle contrôle, sanctionne et publie des <strong>recommandations</strong>.</p></div>
+   <div><span class="chip mb-2">ANSSI</span><p>Agence nationale de la sécurité des systèmes d'information : elle publie des <strong>guides et référentiels</strong> de sécurité.</p></div>
+  </div></div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-8">
+ <h2 class="text-3xl font-extrabold mb-4" data-reveal>Mes actualités et leur analyse</h2>
+ <p class="mb-5 max-w-3xl text-[color:var(--muted)]">Chaque fiche affiche le cadre réglementaire du thème, déjà rempli. Tu ajoutes l'actualité (titre, source, date, faits) et ton analyse dans <code>js/data.js</code>.</p>
+ <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+  <div id="filtres-veille" class="flex flex-wrap gap-2" role="group" aria-label="Filtrer par thématique"></div>
+  <div class="flex gap-2" role="group" aria-label="Mode d'affichage"><button class="filter" data-vue="cartes" aria-pressed="true">Cartes</button><button class="filter" data-vue="chrono" aria-pressed="false">Chronologie</button></div>
+ </div>
+ <div id="veille-liste"></div>
+ <div class="mt-8 flex flex-wrap gap-3"><a class="btn btn-ghost" href="assets/documents/veille/fiches-veille.pdf" target="_blank" rel="noopener"><i data-lucide="file-text" aria-hidden="true"></i>Mes fiches de veille (PDF)</a></div>
+</section>
+
+</div>
+<div class="view" id="view-certifications" data-view="certifications" hidden>
+
+<section class="max-w-6xl mx-auto px-4 pt-10 pb-4">
+ <div class="card p-8 sm:p-10" data-reveal><h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Mes certifications</h1>
+  <p class="text-lg max-w-3xl">Les certifications et attestations que j'ai obtenues, avec leur justificatif. Seules les certifications réellement obtenues apparaissent dans la première section.</p></div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-8"><h2 class="text-3xl font-extrabold mb-5" data-reveal>Certifications obtenues</h2>
+ <div id="certifs-obtenues" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div></section>
+<section class="max-w-6xl mx-auto px-4 py-8"><h2 class="text-3xl font-extrabold mb-2" data-reveal>Certifications en préparation</h2>
+ <p class="mb-5 text-[color:var(--muted)]">Parcours prévus par la trame du portfolio. Chaque statut est à confirmer : en préparation, obtenue, ou abandonnée.</p>
+ <div id="certifs-prep" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div></section>
+
+</div>
+<div class="view" id="view-contact" data-view="contact" hidden>
+
+<section class="max-w-6xl mx-auto px-4 pt-10 pb-12">
+ <div class="grid md:grid-cols-2 gap-6">
+  <div class="card p-8 sm:p-10" data-reveal><h1 class="text-4xl font-extrabold mb-3">Me contacter</h1>
+   <p class="text-lg mb-6">Une question sur mon parcours, mes réalisations ou une opportunité de stage ou d'alternance ? Écris-moi.</p>
+   <ul id="coordonnees" class="space-y-4 mb-7"></ul>
+   <a data-cv download href="assets/documents/cv.pdf" class="btn btn-primary"><i data-lucide="download" aria-hidden="true"></i>Télécharger mon CV</a></div>
+  <div class="card p-8 sm:p-10" data-reveal>
+   <form id="form" novalidate class="grid gap-4">
+    <div class="field"><label for="nom">Nom</label><input id="nom" name="nom" autocomplete="name" required><p class="err" id="err-nom" role="alert"></p></div>
+    <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required><p class="err" id="err-email" role="alert"></p></div>
+    <div class="field"><label for="sujet">Sujet</label><input id="sujet" name="sujet" required><p class="err" id="err-sujet" role="alert"></p></div>
+    <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea><p class="err" id="err-message" role="alert"></p></div>
+    <button id="form-btn" class="btn btn-primary justify-center" type="submit"><i data-lucide="send" aria-hidden="true"></i>Envoyer le message</button>
+    <p id="form-ok" hidden role="status" class="p-3 rounded-xl bg-[color:var(--ciel-l)] font-bold"></p>
+   </form></div>
+ </div>
+</section>
+
+</div>
+</main>
+<div id="site-footer"></div>
+<script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<script>
+/* ====================== TES DONNÉES (à compléter) ====================== */
+/* ==========================================================
+   DONNÉES DU PORTFOLIO : c'est ici que tu complètes ton contenu.
+   - Un champ vide ("" ou []) s'affiche en jaune « à compléter ».
+   - Aucune information n'est inventée : seul ce que tu as indiqué est prérempli.
+   ========================================================== */
+
+window.CONFIG = {
+  prenom: 'Esli',
+  nom: '',                       // ← ton nom de famille
+  titre: 'Étudiante en BTS SIO, option SISR',
+  ecole: 'INGETIS Paris',
+  email: '',                     // ← ton adresse e-mail
+  linkedin: '',                  // ← https://www.linkedin.com/in/...
+  github: '',                    // ← https://github.com/...
+  formEndpoint: '',              // ← (facultatif) URL Formspree pour envoyer le formulaire sans ouvrir la messagerie
+  cv: 'assets/documents/cv.pdf',
+  tableauPdf: 'assets/documents/tableau-synthese.pdf',
+  tableauXlsx: 'assets/documents/tableau-synthese-vierge.xlsx',
+  photo: 'assets/images/photo-esli.jpg'
+};
+
+/* Statuts possibles pour une mission : realise | observe | decouvert | confirm (à confirmer) */
+window.STATUTS = {
+  realise:   { label: 'Réalisé',      cls: 'st-realise' },
+  observe:   { label: 'Observé',      cls: 'st-observe' },
+  decouvert: { label: 'Découvert',    cls: 'st-decouvert' },
+  confirm:   { label: 'À confirmer',  cls: 'st-confirm' }
+};
+
+window.DATA = {
+
+  /* ---------- Expériences (frise de l'accueil) ---------- */
+  experiences: [
+    { id: 'eslsca', lieu: 'ESLSCA Business School', periode: 'Mars – juin 2025', type: 'Stage',
+      resume: 'Intervention sur le matériel informatique et la bureautique.',
+      missions: [
+        { t: 'Intervention sur des ordinateurs HP EliteBook', s: 'confirm' },
+        { t: 'Intervention sur des imprimantes réseau HP LaserJet', s: 'confirm' },
+        { t: 'Utilisation des outils Microsoft Office', s: 'confirm' }
+      ] },
+    { id: 'jtb', lieu: 'JTB', periode: '29 juin – 31 juillet 2026', type: 'Expérience professionnelle',
+      resume: 'Tâches administratives et suivi par tableaux.',
+      missions: [
+        { t: 'Participation à des tâches administratives', s: 'confirm' },
+        { t: 'Gestion de tableaux de suivi', s: 'confirm' }
+      ] },
+    { id: 'mairie', lieu: "Mairie d'Athis-Mons", periode: 'Du 2 novembre au 4 décembre 2026', type: 'Stage en cours',
+      resume: 'Informatique, systèmes, réseaux et assistance aux utilisateurs.',
+      missions: [
+        { t: 'Gestion des demandes utilisateurs', s: 'confirm' },
+        { t: "Assistance sur les problèmes d'impression", s: 'confirm' },
+        { t: 'Diagnostic des problèmes de connectivité', s: 'confirm' },
+        { t: 'Résolution des problèmes liés aux postes informatiques', s: 'confirm' },
+        { t: 'Participation au déploiement du parc informatique', s: 'confirm' },
+        { t: 'Inventaire du parc informatique', s: 'confirm' },
+        { t: 'Découverte du fonctionnement de GLPI', s: 'decouvert' },
+        { t: "Utilisation de TeamViewer pour l'assistance à distance", s: 'confirm' }
+      ] }
+  ],
+
+  /* ---------- Entreprises d'accueil ---------- */
+  entreprises: [
+    { id: 'eslsca', nom: 'ESLSCA Business School', image: 'assets/images/entreprises/eslsca.jpg',
+      infos: { 'Type': 'École de commerce', 'Ville': '', 'Activité': '', 'Effectif': '', "Service d'accueil": '', 'Mon rôle': 'Intervention sur postes HP EliteBook et imprimantes réseau HP LaserJet' } },
+    { id: 'jtb', nom: 'JTB', image: 'assets/images/entreprises/jtb.jpg',
+      infos: { 'Type': '', 'Ville': '', 'Activité': '', 'Effectif': '', "Service d'accueil": '', 'Mon rôle': 'Tâches administratives et gestion de tableaux de suivi' } },
+    { id: 'mairie', nom: "Mairie d'Athis-Mons", image: 'assets/images/entreprises/mairie-athis-mons.jpg',
+      infos: { 'Type': 'Collectivité territoriale (commune)', 'Ville': 'Athis-Mons', 'Activité': '', 'Effectif': '', "Service d'accueil": 'Service informatique', 'Mon rôle': 'Assistance aux utilisateurs, déploiement et inventaire du parc' } }
+  ],
+
+  /* ---------- Parcours académique ---------- */
+  parcours: [
+    { annee: '2025 – 2027', titre: 'BTS SIO, option SISR', lieu: 'INGETIS, Paris', detail: 'Solutions d\'infrastructure, systèmes et réseaux.' },
+    { annee: '', titre: '', lieu: '', detail: '' },   // ← baccalauréat ou diplôme précédent
+    { annee: '', titre: '', lieu: '', detail: '' }    // ← autre formation
+  ],
+
+  /* ---------- Compétences : level = nombre de 0 à 100, ou null pour « à évaluer » ---------- */
+  competences: [
+    { nom: 'Systèmes', icone: 'server', outils: ['Windows Server', 'Active Directory', 'Linux'], level: null },
+    { nom: 'Réseaux', icone: 'network', outils: ['Cisco', 'VLAN', 'Routage'], level: null },
+    { nom: 'Support utilisateur', icone: 'headset', outils: ['GLPI', 'TeamViewer', 'Imprimantes réseau'], level: null },
+    { nom: 'Cybersécurité', icone: 'shield-check', outils: ['Durcissement', 'Sauvegardes'], level: null },
+    { nom: 'Virtualisation', icone: 'layers', outils: [], level: null },
+    { nom: 'Bureautique', icone: 'file-spreadsheet', outils: ['Microsoft Office'], level: null }
+  ],
+
+  /* ---------- E5 : les six compétences évaluées (issues du tableau de synthèse) ---------- */
+  e5Competences: [
+    { titre: 'Gérer le patrimoine informatique', icone: 'boxes', points: ['Recenser et identifier les ressources numériques', 'Exploiter des référentiels, normes et standards', 'Mettre en place et vérifier les niveaux d\'habilitation', 'Vérifier la continuité d\'un service informatique', 'Gérer des sauvegardes', 'Vérifier le respect des règles d\'utilisation des ressources'] },
+    { titre: 'Répondre aux incidents et aux demandes d\'assistance', icone: 'life-buoy', points: ['Collecter, suivre et orienter des demandes', 'Traiter les demandes réseau et système', 'Traiter les demandes concernant les applications'] },
+    { titre: 'Développer la présence en ligne de l\'organisation', icone: 'globe', points: ['Valoriser l\'image de l\'organisation dans le respect du cadre juridique', 'Référencer les services en ligne et mesurer leur visibilité', 'Participer à l\'évolution d\'un site web'] },
+    { titre: 'Travailler en mode projet', icone: 'kanban', points: ['Analyser les objectifs et l\'organisation d\'un projet', 'Planifier les activités', 'Évaluer les indicateurs de suivi et analyser les écarts'] },
+    { titre: 'Mettre à disposition des utilisateurs un service informatique', icone: 'rocket', points: ['Réaliser les tests d\'intégration et d\'acceptation', 'Déployer un service', 'Accompagner les utilisateurs'] },
+    { titre: 'Organiser son développement professionnel', icone: 'compass', points: ['Mettre en place son environnement d\'apprentissage personnel', 'Mettre en œuvre des outils et stratégies de veille', 'Gérer son identité professionnelle', 'Développer son projet professionnel'] }
+  ],
+
+  /* ---------- E5 : réalisations (8 champs demandés) ---------- */
+  e5Realisations: [
+    { id: 'r-mairie', lieu: 'Milieu professionnel', titre: "Assistance aux utilisateurs, mairie d'Athis-Mons",
+      contexte: "Stage au service informatique de la mairie d'Athis-Mons (2 novembre – 4 décembre 2026).", objectif: '',
+      missions: ['Gestion des demandes utilisateurs', "Assistance sur les problèmes d'impression", 'Diagnostic des problèmes de connectivité', 'Résolution des problèmes liés aux postes informatiques', 'Déploiement et inventaire du parc informatique'],
+      competences: [], outils: ['GLPI (découverte)', 'TeamViewer'], resultat: '', preuves: [] },
+    { id: 'r-eslsca', lieu: 'Milieu professionnel', titre: 'Maintenance de postes et d\'imprimantes, ESLSCA',
+      contexte: 'Stage de mars à juin 2025 à ESLSCA Business School.', objectif: '',
+      missions: ['Intervention sur des ordinateurs HP EliteBook', 'Intervention sur des imprimantes réseau HP LaserJet', 'Utilisation des outils Microsoft Office'],
+      competences: [], outils: ['HP EliteBook', 'HP LaserJet', 'Microsoft Office'], resultat: '', preuves: [] },
+    { id: 'r-a1', lieu: 'En formation', titre: 'Active Directory', contexte: '', objectif: '', missions: [], competences: [], outils: [], resultat: '', preuves: [] },
+    { id: 'r-a2', lieu: 'En formation', titre: 'GLPI : gestion de parc et assistance', contexte: '', objectif: '', missions: [], competences: [], outils: [], resultat: '', preuves: [] },
+    { id: 'r-a3', lieu: 'En formation', titre: 'Cybersécurité', contexte: '', objectif: '', missions: [], competences: [], outils: [], resultat: '', preuves: [] },
+    { id: 'r-a4', lieu: 'En formation', titre: 'Réseau Cisco', contexte: '', objectif: '', missions: [], competences: [], outils: [], resultat: '', preuves: [] }
+  ],
+
+  /* ---------- E6 : deux situations professionnelles ---------- */
+  e6: [
+    { id: 's1', onglet: 'Situation 1 · Réseau', titre: '', contexte: '', environnement: '', problematique: '', objectifs: '',
+      travail: '', outils: [], competences: [], procedure: [], resultats: '',
+      captures: [{ src: 'assets/images/e6/s1-capture-1.png', alt: 'Capture d\'écran 1 de la situation 1' }, { src: 'assets/images/e6/s1-capture-2.png', alt: 'Capture d\'écran 2 de la situation 1' }],
+      schemas: [{ src: 'assets/images/e6/s1-schema-1.png', alt: 'Schéma technique de la situation 1' }],
+      pdf: 'assets/documents/situations-e6/situation-1.pdf' },
+    { id: 's2', onglet: 'Situation 2 · Système', titre: '', contexte: '', environnement: '', problematique: '', objectifs: '',
+      travail: '', outils: [], competences: [], procedure: [], resultats: '',
+      captures: [{ src: 'assets/images/e6/s2-capture-1.png', alt: 'Capture d\'écran 1 de la situation 2' }, { src: 'assets/images/e6/s2-capture-2.png', alt: 'Capture d\'écran 2 de la situation 2' }],
+      schemas: [{ src: 'assets/images/e6/s2-schema-1.png', alt: 'Schéma technique de la situation 2' }],
+      pdf: 'assets/documents/situations-e6/situation-2.pdf' }
+  ],
+
+  /* ---------- Projets ---------- */
+  categoriesProjets: ['Administration systèmes', 'Réseaux informatiques', 'Cybersécurité', 'Support informatique', 'Virtualisation', 'Scripts et automatisation'],
+  projets: [
+    { id: 'a1', categorie: 'Administration systèmes', titre: 'Active Directory', icone: 'users-round', couverture: 'assets/images/projets/a1.jpg',
+      resume: '', contexte: '', objectif: '', architecture: '', technologies: ['Windows Server', 'Active Directory'], etapes: [], difficultes: '', solutions: '', resultats: '',
+      captures: [{ src: 'assets/images/projets/a1-capture-1.png', alt: 'Capture du projet Active Directory' }], pdf: 'assets/documents/projets/projet-a1.pdf' },
+    { id: 'a2', categorie: 'Support informatique', titre: 'GLPI : gestion de parc et assistance', icone: 'ticket', couverture: 'assets/images/projets/a2.jpg',
+      resume: '', contexte: '', objectif: '', architecture: '', technologies: ['GLPI'], etapes: [], difficultes: '', solutions: '', resultats: '',
+      captures: [{ src: 'assets/images/projets/a2-capture-1.png', alt: 'Capture du projet GLPI' }], pdf: 'assets/documents/projets/projet-a2.pdf' },
+    { id: 'a3', categorie: 'Cybersécurité', titre: 'Cybersécurité', icone: 'shield-check', couverture: 'assets/images/projets/a3.jpg',
+      resume: '', contexte: '', objectif: '', architecture: '', technologies: [], etapes: [], difficultes: '', solutions: '', resultats: '',
+      captures: [{ src: 'assets/images/projets/a3-capture-1.png', alt: 'Capture du projet cybersécurité' }], pdf: 'assets/documents/projets/projet-a3.pdf' },
+    { id: 'a4', categorie: 'Réseaux informatiques', titre: 'Réseau Cisco', icone: 'network', couverture: 'assets/images/projets/a4.jpg',
+      resume: '', contexte: '', objectif: '', architecture: '', technologies: ['Cisco'], etapes: [], difficultes: '', solutions: '', resultats: '',
+      captures: [{ src: 'assets/images/projets/a4-capture-1.png', alt: 'Capture du projet réseau Cisco' }], pdf: 'assets/documents/projets/projet-a4.pdf' }
+  ],
+
+  /* ---------- Veille : une fiche par actualité. Ajoute tes articles dans ce tableau. ----------
+     Les rubriques « obligations » et « recommandations » préremplies sont le CADRE de référence de chaque thème.
+     Elles ne disent pas qu'une actualité est conforme ou non : c'est à toi d'analyser, avec tes sources. */
+  categoriesVeille: ['Cybersécurité', 'Administration systèmes', 'Réseaux informatiques', 'Cloud computing', 'Intelligence artificielle', 'Protection des données'],
+  veille: [
+    { id: 'v-cyber', categorie: 'Cybersécurité', titre: '', source: '', url: '', date: '', faits: '', enjeux: '', consequences: '',
+      obligations: ['RGPD, art. 32 : mesures de sécurité adaptées au risque.', 'RGPD, art. 33 : notification de la violation de données à la CNIL dans les 72 h, sauf absence de risque.', 'RGPD, art. 34 : information des personnes si le risque est élevé.', 'Directive NIS 2 : obligations pour les entités concernées (transposition française à vérifier).'],
+      recommandations: ['CNIL : guide de la sécurité des données personnelles.', 'ANSSI : guide d\'hygiène informatique (recommandations de bonnes pratiques).'], analyse: '' },
+    { id: 'v-sys', categorie: 'Administration systèmes', titre: '', source: '', url: '', date: '', faits: '', enjeux: '', consequences: '',
+      obligations: ['RGPD, art. 5 et 32 : confidentialité et intégrité, gestion des accès aux données.'],
+      recommandations: ['CNIL : recommandation relative à la journalisation.', 'ANSSI : recommandations pour l\'administration sécurisée des systèmes d\'information.'], analyse: '' },
+    { id: 'v-res', categorie: 'Réseaux informatiques', titre: '', source: '', url: '', date: '', faits: '', enjeux: '', consequences: '',
+      obligations: ['RGPD, art. 32 : sécurité des traitements, dont la sécurité des réseaux qui les transportent.'],
+      recommandations: ['ANSSI : recommandations sur le filtrage réseau des pare-feux et sur la sécurité des réseaux Wi-Fi.', 'CNIL : guide de la sécurité des données personnelles (réseaux et postes de travail).'], analyse: '' },
+    { id: 'v-cloud', categorie: 'Cloud computing', titre: '', source: '', url: '', date: '', faits: '', enjeux: '', consequences: '',
+      obligations: ['RGPD, art. 28 : contrat avec le prestataire sous-traitant.', 'RGPD, chapitre V : encadrement des transferts de données hors Union européenne.'],
+      recommandations: ['CNIL : recommandations sur le recours à un prestataire de cloud.', 'ANSSI : référentiel SecNumCloud (qualification des prestataires ; exigé dans certains contextes, à vérifier).'], analyse: '' },
+    { id: 'v-ia', categorie: 'Intelligence artificielle', titre: '', source: '', url: '', date: '', faits: '', enjeux: '', consequences: '',
+      obligations: ['RGPD : base légale, minimisation, transparence, décisions automatisées (art. 22), analyse d\'impact (art. 35) si nécessaire.', 'Règlement européen sur l\'IA (UE 2024/1689) : obligations selon le niveau de risque, application échelonnée.'],
+      recommandations: ['CNIL : fiches pratiques « IA et RGPD ».', 'ANSSI : recommandations de sécurité pour les systèmes d\'IA générative.'], analyse: '' },
+    { id: 'v-rgpd', categorie: 'Protection des données', titre: '', source: '', url: '', date: '', faits: '', enjeux: '', consequences: '',
+      obligations: ['RGPD, art. 5 et 6 : principes et bases légales du traitement.', 'RGPD, art. 30 : registre des activités de traitement.', 'RGPD, art. 35 : analyse d\'impact (AIPD) pour les traitements à risque élevé.'],
+      recommandations: ['CNIL : guides pratiques et outil d\'analyse d\'impact.', 'ANSSI : aucune recommandation spécifique identifiée pour l\'instant.'], analyse: '' }
+  ],
+
+  /* ---------- Certifications ----------
+     obtenues : ajoute ici uniquement les certifications que tu as réellement obtenues. */
+  certificationsObtenues: [
+    // { nom: '', organisme: '', description: '', competences: [], date: '', image: 'assets/images/certifications/xxx.png', pdf: 'assets/documents/certifications/xxx.pdf', lien: '' }
+  ],
+  certificationsEnPreparation: [
+    { nom: 'NDG Linux', organisme: 'Cisco Networking Academy', description: 'Parcours sur l\'administration des systèmes Linux.' },
+    { nom: 'CCNA', organisme: 'Cisco Networking Academy', description: 'Parcours sur les réseaux : commutation, routage, services IP.' },
+    { nom: 'Atelier RGPD', organisme: 'CNIL', description: 'MOOC sur la protection des données personnelles.' },
+    { nom: 'SecNumacadémie', organisme: 'ANSSI', description: 'MOOC sur les fondamentaux de la sécurité du numérique.' },
+    { nom: 'Certification cloud (Azure ou AWS)', organisme: '', description: '' }
+  ]
+};
+
+</script>
+<script>
+/* ====================== FONCTIONNEMENT DU SITE ====================== */
+/* ==========================================================
+   Portfolio BTS SIO SISR · script commun
+   Contenu : mise en page commune, animations, rendu des données (js/data.js), formulaire.
+   ========================================================== */
+(() => {
+  'use strict';
+  document.documentElement.classList.add('js');
+  const C = window.CONFIG, D = window.DATA, ST = window.STATUTS;
+  const ROUTES = ['home', 'e5', 'e6', 'projets', 'veille', 'certifications', 'contact'];
+  const TITLES = {"home": "Accueil", "e5": "Épreuve E5", "e6": "Épreuve E6", "projets": "Projets", "veille": "Veille technologique", "certifications": "Certifications", "contact": "Contact"};
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Utilitaires de rendu ---------- */
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const T = (hint = 'à compléter') => `<span class="todo">${esc(hint)}</span>`;
+  const icon = n => `<i data-lucide="${n}" aria-hidden="true"></i>`;
+  const fullName = () => esc(C.prenom + (C.nom ? ' ' + C.nom : ''));
+  const isEmpty = v => v == null || (Array.isArray(v) ? v.length === 0 : String(v).trim() === '');
+  /* Affiche une valeur : texte, liste, ou zone « à compléter » si vide */
+  const val = (v, hint) => {
+    if (isEmpty(v)) return T(hint);
+    if (Array.isArray(v)) return `<ul class="list-disc pl-5 space-y-1">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+    return String(v).split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('');
+  };
+  const statut = s => { const x = ST[s] || ST.confirm; return `<span class="chip ${x.cls}">${x.label}</span>`; };
+  /* Image facultative : si le fichier n'existe pas, le visuel de remplacement reste affiché */
+  const visuel = (src, alt, label, cls = '') =>
+    `<div class="visuel ${cls}"><span class="px-3 text-center">${esc(label)}</span><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" onerror="this.remove()"></div>`;
+  const refresh = () => { if (window.lucide) window.lucide.createIcons(); observeReveal(); };
+
+  /* ---------- Mise en page commune : en-tête et pied de page ---------- */
+  const NAV = [['#home', 'Accueil', 'home'], ['#e5', 'Épreuve E5', 'e5'], ['#e6', 'Épreuve E6', 'e6'], ['#projets', 'Projets', 'projets'],
+    ['#veille', 'Veille', 'veille'], ['#certifications', 'Certifications', 'certifications'], ['#contact', 'Contact', 'contact']];
+  const links = cls => NAV.map(([h, l, k]) => `<a class="${cls}" href="${h}" data-route="${k}">${l}</a>`).join('');
+  const header = $('#site-header');
+  if (header) header.innerHTML = `
+    <div class="sticky top-3 z-50 px-3">
+      <nav class="card max-w-6xl mx-auto flex items-center justify-between px-4 py-2.5" aria-label="Navigation principale">
+        <a href="#home" class="font-extrabold text-xl" style="font-family:Sora">${fullName()}<span class="text-[color:var(--violet)]"> · SIO SISR</span></a>
+        <div class="hidden lg:flex items-center gap-1">${links('nav-link')}</div>
+        <button id="burger" class="lg:hidden p-2 rounded-full hover:bg-[color:var(--ciel-l)]" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-mobile">${icon('menu')}</button>
+      </nav>
+      <div id="menu-mobile" hidden class="card max-w-6xl mx-auto mt-2 p-3 grid gap-1 lg:hidden">${links('nav-link block')}</div>
+    </div>`;
+  const footer = $('#site-footer');
+  if (footer) footer.innerHTML = `
+    <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm text-[color:var(--muted)]">
+      <p class="font-bold text-[color:var(--petrole-d)]">${fullName()} · Portfolio BTS SIO option SISR · Session 2027</p>
+      <p class="mt-1">${esc(C.ecole)} · © ${new Date().getFullYear()}</p>
+      <p class="mt-3"><a class="underline font-bold text-[color:var(--petrole)]" href="#top">Retour en haut</a></p>
+    </div>`;
+  const burger = $('#burger'), mm = $('#menu-mobile');
+  if (burger) burger.addEventListener('click', () => { const open = mm.hidden; mm.hidden = !open; burger.setAttribute('aria-expanded', String(open)); });
+
+  /* ---------- Liens dynamiques (CV, contacts) ---------- */
+  $$('[data-cv]').forEach(a => { a.href = C.cv; });
+  $$('[data-fullname]').forEach(e => { e.textContent = C.prenom + (C.nom ? ' ' + C.nom : ''); });
+
+  /* ---------- Barre de progression de lecture ---------- */
+  const bar = $('#progress');
+  const onScroll = () => { const h = document.documentElement; const max = h.scrollHeight - h.clientHeight; if (bar) bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%'; };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* ---------- Apparition au défilement (Intersection Observer) ---------- */
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in'); io.unobserve(e.target);
+    $$('.bar > span[data-w]', e.target).forEach(b => { b.style.width = b.dataset.w + '%'; });
+  }), { threshold: 0.12 });
+  function observeReveal() {
+    $$('[data-reveal]:not(.seen)').forEach((el, i) => {
+      el.classList.add('seen');
+      if (reduced) { el.classList.add('in'); $$('.bar > span[data-w]', el).forEach(b => { b.style.width = b.dataset.w + '%'; }); return; }
+      if (!el.style.getPropertyValue('--d')) el.style.setProperty('--d', (i % 4) * 0.08 + 's');
+      io.observe(el);
+    });
+  }
+
+  /* ---------- Fenêtre modale ---------- */
+  let dlg;
+  function openModal(title, html, onClose) {
+    if (!dlg) { dlg = document.createElement('dialog'); dlg.className = 'modal'; dlg.setAttribute('aria-labelledby', 'modal-title'); document.body.appendChild(dlg);
+      dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); }); }
+    dlg.innerHTML = `<div class="modal-head"><h2 id="modal-title" class="text-xl font-bold">${title}</h2><button class="btn btn-ghost !p-2" aria-label="Fermer" data-close>${icon('x')}</button></div><div class="modal-body">${html}</div>`;
+    $('[data-close]', dlg).addEventListener('click', () => dlg.close());
+    dlg.onclose = () => { if (onClose) onClose(); };
+    dlg.showModal(); refresh();
+  }
+  const block = (titre, contenu, ico) => `<section class="mb-6"><h3 class="flex items-center gap-2 text-lg font-bold mb-2">${ico ? `<span class="ico !w-9 !h-9 !rounded-xl">${icon(ico)}</span>` : ''}${titre}</h3><div class="space-y-2 text-[0.97rem] leading-relaxed">${contenu}</div></section>`;
+  const gallery = (items, label) => `<div class="grid sm:grid-cols-2 gap-4">${(items || []).map((g, i) => `<figure>${visuel(g.src, g.alt, label + ' ' + (i + 1) + ' à ajouter', 'aspect-video rounded-2xl')}<figcaption class="text-sm mt-1 text-[color:var(--muted)]">${esc(g.alt)}</figcaption></figure>`).join('')}</div>`;
+  const docBtn = (href, label) => `<a class="btn btn-primary" href="${esc(href)}" download>${icon('download')}${esc(label)}</a> <a class="btn btn-ghost" href="${esc(href)}" target="_blank" rel="noopener">${icon('eye')}Ouvrir dans le navigateur</a>`;
+
+  /* ---------- Visionneuses de PDF (chargées à la demande) ---------- */
+  $$('.viewer').forEach(v => {
+    const btn = $('.viewer-toggle', v), zone = $('.viewer-zone', v);
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      zone.hidden = open;
+      if (!open && !zone.firstElementChild) zone.innerHTML = `<iframe class="viewer-frame" title="${esc(v.dataset.title)}" src="${esc(v.dataset.src)}"></iframe><p class="text-sm mt-2 text-[color:var(--muted)]">Si le document ne s'affiche pas, <a class="underline font-bold" href="${esc(v.dataset.src)}" target="_blank" rel="noopener">ouvre-le dans un nouvel onglet</a>.</p>`;
+      btn.querySelector('span').textContent = open ? btn.dataset.open : btn.dataset.close;
+    });
+  });
+
+  /* ==================== RENDU PAR PAGE ==================== */
+
+  /* ----- Accueil ----- */
+  function renderHome() {
+    const ph = $('#hero-photo'); if (ph) ph.innerHTML = `<span>${esc(C.prenom.charAt(0))}</span><img src="${esc(C.photo)}" alt="Portrait de ${esc(C.prenom)}" onerror="this.remove()">`;
+    const legend = `<div class="flex flex-wrap gap-2 mb-5 text-sm items-center"><span class="font-bold mr-1">Statut des missions :</span>${Object.keys(ST).map(statut).join('')}</div>`;
+    $('#timeline').innerHTML = legend + `<div class="timeline">${D.experiences.map(x => `
+      <article class="t-item" data-reveal>
+        <div class="card card-hover p-6">
+          <div class="flex flex-wrap items-center gap-2 mb-1"><span class="chip">${esc(x.periode)}</span><span class="chip chip-violet">${esc(x.type)}</span></div>
+          <h3 class="text-xl font-bold">${esc(x.lieu)}</h3>
+          <p class="text-[color:var(--muted)] mb-3">${esc(x.resume)}</p>
+          <details class="acc"><summary class="font-bold text-[color:var(--petrole)]">Voir mes missions<span class="chev">${icon('chevron-down')}</span></summary>
+            <ul class="mt-3 space-y-2">${x.missions.map(m => `<li class="flex flex-wrap items-center gap-2">${statut(m.s)}<span>${esc(m.t)}</span></li>`).join('')}</ul></details>
+        </div></article>`).join('')}</div>`;
+    $('#entreprises').innerHTML = D.entreprises.map(e => `
+      <article class="card card-hover overflow-hidden flex flex-col" data-reveal>
+        ${visuel(e.image, 'Illustration : ' + e.nom, e.nom, 'h-40 text-2xl')}
+        <div class="p-6"><h3 class="text-xl font-bold mb-3">${esc(e.nom)}</h3>
+          <dl class="space-y-1.5 text-[0.95rem]">${Object.entries(e.infos).map(([k, v]) => `<div><dt class="inline font-bold">${esc(k)} : </dt><dd class="inline">${isEmpty(v) ? T() : esc(v)}</dd></div>`).join('')}</dl></div>
+      </article>`).join('');
+    $('#parcours').innerHTML = D.parcours.map(p => `
+      <article class="card p-6" data-reveal>
+        <p class="font-bold text-[color:var(--violet)]">${isEmpty(p.annee) ? T('période') : esc(p.annee)}</p>
+        <h3 class="text-lg font-bold">${isEmpty(p.titre) ? T('diplôme ou formation') : esc(p.titre)}</h3>
+        <p>${isEmpty(p.lieu) ? T('établissement') : esc(p.lieu)}</p><p class="text-sm text-[color:var(--muted)] mt-1">${isEmpty(p.detail) ? T('ce que tu y as appris') : esc(p.detail)}</p>
+      </article>`).join('');
+    $('#competences').innerHTML = D.competences.map(c => `
+      <article class="card card-hover p-6" data-reveal>
+        <div class="flex items-center gap-3 mb-3"><span class="ico">${icon(c.icone)}</span><h3 class="text-lg font-bold">${esc(c.nom)}</h3></div>
+        <div class="flex flex-wrap gap-1.5 mb-4">${c.outils.length ? c.outils.map(o => `<span class="chip">${esc(o)}</span>`).join('') : T('outils')}</div>
+        ${c.level == null ? `<div class="bar bar-empty" role="img" aria-label="Niveau à évaluer"><span></span></div><p class="text-xs mt-1">${T('niveau à évaluer')}</p>`
+          : `<div class="bar" role="img" aria-label="Niveau ${c.level} sur 100"><span data-w="${c.level}"></span></div>`}
+      </article>`).join('');
+    $('#apercu-projets').innerHTML = D.projets.slice(0, 4).map(projetCard).join('');
+  }
+
+  /* ----- E5 ----- */
+  function renderE5() {
+    $('#e5-competences').innerHTML = D.e5Competences.map((c, i) => `
+      <details class="acc card p-5" data-reveal><summary><span class="ico">${icon(c.icone)}</span><span class="font-bold text-lg">${i + 1}. ${esc(c.titre)}</span><span class="chev">${icon('chevron-down')}</span></summary>
+        <ul class="mt-4 space-y-1.5 list-disc pl-5 text-[0.95rem]">${c.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul></details>`).join('');
+    $('#e5-realisations').innerHTML = D.e5Realisations.map(r => `
+      <article class="card card-hover p-6 flex flex-col" data-reveal>
+        <span class="chip self-start mb-3 ${r.lieu === 'En formation' ? '' : 'chip-violet'}">${esc(r.lieu)}</span>
+        <h3 class="text-xl font-bold mb-2">${esc(r.titre)}</h3>
+        <p class="text-sm mb-1"><strong>Contexte :</strong> ${isEmpty(r.contexte) ? T() : esc(r.contexte)}</p>
+        <p class="text-sm mb-4"><strong>Objectif :</strong> ${isEmpty(r.objectif) ? T() : esc(r.objectif)}</p>
+        <button class="btn btn-ghost mt-auto self-start" data-r="${r.id}">${icon('layout-list')}Voir la fiche complète</button>
+      </article>`).join('');
+    $$('#e5-realisations [data-r]').forEach(b => b.addEventListener('click', () => {
+      const r = D.e5Realisations.find(x => x.id === b.dataset.r);
+      openModal(esc(r.titre), block('Titre', esc(r.titre)) + block('Contexte', val(r.contexte), 'building-2') + block('Objectif', val(r.objectif), 'target') +
+        block('Missions', val(r.missions), 'wrench') + block('Compétences mobilisées', val(r.competences, 'compétences du tableau de synthèse'), 'award') +
+        block('Outils utilisés', val(r.outils), 'cpu') + block('Résultat obtenu', val(r.resultat), 'circle-check') +
+        block('Preuves et documentation', isEmpty(r.preuves) ? T('liens vers tes preuves (PDF, captures)') : val(r.preuves), 'paperclip'));
+    }));
+  }
+
+  /* ----- E6 ----- */
+  const E6F = [['contexte', 'Contexte professionnel', 'building-2'], ['environnement', 'Environnement technique', 'server'], ['problematique', 'Problématique rencontrée', 'circle-help'],
+    ['objectifs', 'Objectifs', 'target'], ['travail', 'Travail réalisé', 'wrench'], ['outils', 'Outils et technologies utilisés', 'cpu'], ['competences', 'Compétences mobilisées', 'award'],
+    ['procedure', 'Procédure détaillée', 'list-ordered'], ['resultats', 'Résultats et tests', 'circle-check']];
+  function e6Accordion(s) { /* présentation 1 : accordéons numérotés */
+    const head = `<h3 class="text-2xl font-bold mb-4"><span class="chip mr-2">1</span>Titre : ${isEmpty(s.titre) ? T('titre de la situation') : esc(s.titre)}</h3>`;
+    const items = E6F.map(([k, l, ic], i) => `<details class="acc card p-5" ${i === 0 ? 'open' : ''}><summary><span class="chip">${i + 2}</span><span class="font-bold">${l}</span><span class="chev">${icon('chevron-down')}</span></summary><div class="mt-3 space-y-2">${val(s[k])}</div></details>`).join('');
+    return head + `<div class="grid gap-3">${items}</div>` + e6Tail(s, 11);
+  }
+  function e6Grid(s) { /* présentation 2 : cartes en grille */
+    const head = `<h3 class="text-2xl font-bold mb-4">${isEmpty(s.titre) ? T('titre de la situation') : esc(s.titre)}</h3>`;
+    const cards = E6F.map(([k, l, ic]) => `<article class="card card-hover p-5 ${k === 'procedure' || k === 'travail' ? 'md:col-span-2' : ''}"><div class="flex items-center gap-3 mb-2"><span class="ico">${icon(ic)}</span><h4 class="font-bold">${l}</h4></div><div class="space-y-2 text-[0.95rem]">${val(s[k])}</div></article>`).join('');
+    return head + `<div class="grid md:grid-cols-2 gap-4">${cards}</div>` + e6Tail(s, 11);
+  }
+  function e6Tail(s, n) {
+    return `<h4 class="text-lg font-bold mt-8 mb-3">${n}. Captures d'écran</h4>${gallery(s.captures, 'Capture')}
+      <h4 class="text-lg font-bold mt-8 mb-3">${n + 1}. Schémas techniques</h4>${gallery(s.schemas, 'Schéma')}
+      <h4 class="text-lg font-bold mt-8 mb-3">${n + 2}. Documentation PDF</h4><div class="flex flex-wrap gap-3">${docBtn(s.pdf, 'Télécharger la documentation')}</div>`;
+  }
+  function renderE6() {
+    const tabs = $('#e6-tabs'), panels = $('#e6-panels');
+    tabs.innerHTML = D.e6.map((s, i) => `<button role="tab" class="tab" id="tab-${s.id}" aria-controls="panel-${s.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${esc(s.onglet)}</button>`).join('');
+    panels.innerHTML = D.e6.map((s, i) => `<div role="tabpanel" class="panel" id="panel-${s.id}" aria-labelledby="tab-${s.id}" ${i ? 'hidden' : ''}>${i === 0 ? e6Accordion(s) : e6Grid(s)}</div>`).join('');
+    const sel = id => { $$('[role=tab]', tabs).forEach(t => { const on = t.id === 'tab-' + id; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+      $$('.panel', panels).forEach(p => { p.hidden = p.id !== 'panel-' + id; }); refresh(); };
+    tabs.addEventListener('click', e => { const t = e.target.closest('[role=tab]'); if (t) sel(t.id.slice(4)); });
+    tabs.addEventListener('keydown', e => { if (!['ArrowRight', 'ArrowLeft'].includes(e.key)) return; const t = $$('[role=tab]', tabs); const i = t.findIndex(x => x === document.activeElement);
+      const n = t[(i + (e.key === 'ArrowRight' ? 1 : -1) + t.length) % t.length]; n.focus(); sel(n.id.slice(4)); });
+  }
+
+  /* ----- Projets ----- */
+  function projetCard(p) {
+    return `<article class="card card-hover overflow-hidden flex flex-col" data-reveal>
+      ${visuel(p.couverture, 'Image de couverture : ' + p.titre, p.titre, 'h-36 text-xl')}
+      <div class="p-5 flex flex-col grow"><span class="chip self-start mb-2">${esc(p.categorie)}</span><h3 class="text-lg font-bold mb-1">${esc(p.titre)}</h3>
+        <p class="text-sm mb-3">${isEmpty(p.resume) ? T('résumé du projet') : esc(p.resume)}</p>
+        <div class="flex flex-wrap gap-1.5 mb-4">${p.technologies.map(t => `<span class="chip chip-violet">${esc(t)}</span>`).join('')}</div>
+        <button class="btn btn-ghost mt-auto self-start" data-projet="${p.id}" type="button">${icon('arrow-right')}Consulter le projet</button></div></article>`;
+  }
+  function projetModal(p) {
+    history.replaceState(null, '', '#projets/' + p.id);
+    openModal(esc(p.titre), `<div class="flex flex-wrap gap-2 mb-5"><span class="chip">${esc(p.categorie)}</span>${p.technologies.map(t => `<span class="chip chip-violet">${esc(t)}</span>`).join('')}</div>` +
+      visuel(p.couverture, 'Image de couverture : ' + p.titre, 'Image de couverture à ajouter', 'h-48 rounded-2xl mb-6') +
+      block('Présentation', val(p.resume), 'info') + block('Contexte', val(p.contexte), 'building-2') + block('Objectif', val(p.objectif), 'target') +
+      block('Architecture technique', val(p.architecture), 'blocks') + block('Technologies utilisées', val(p.technologies), 'cpu') +
+      block('Étapes de réalisation', isEmpty(p.etapes) ? T('étapes') : `<ol class="list-decimal pl-5 space-y-1">${p.etapes.map(e => `<li>${esc(e)}</li>`).join('')}</ol>`, 'list-ordered') +
+      block('Difficultés rencontrées', val(p.difficultes), 'triangle-alert') + block('Solutions apportées', val(p.solutions), 'lightbulb') + block('Résultats', val(p.resultats), 'circle-check') +
+      block('Captures d\'écran', gallery(p.captures, 'Capture'), 'image') + block('Documentation', `<div class="flex flex-wrap gap-3">${docBtn(p.pdf, 'Télécharger la documentation')}</div>`, 'file-down'),
+      () => history.replaceState(null, '', '#projets'));
+  }
+  function renderProjets() {
+    let cat = 'Tous';
+    const chips = $('#filtres-projets'), grid = $('#projets-grid'), empty = $('#projets-vide');
+    const cats = ['Tous', ...D.categoriesProjets];
+    chips.innerHTML = cats.map(c => { const n = c === 'Tous' ? D.projets.length : D.projets.filter(p => p.categorie === c).length; return `<button class="filter" aria-pressed="${c === cat}" data-c="${esc(c)}">${esc(c)} <span class="opacity-70">(${n})</span></button>`; }).join('');
+    const draw = () => { const list = D.projets.filter(p => cat === 'Tous' || p.categorie === cat);
+      grid.innerHTML = list.map(projetCard).join(''); empty.hidden = list.length > 0; refresh(); };
+    chips.addEventListener('click', e => { const b = e.target.closest('.filter'); if (!b) return; cat = b.dataset.c; $$('.filter', chips).forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+    grid.addEventListener('click', e => { const b = e.target.closest('[data-projet]'); if (b) projetModal(D.projets.find(p => p.id === b.dataset.projet)); });
+    draw();
+  }
+
+  /* ----- Veille ----- */
+  const fmtDate = d => { const x = new Date(d); return isNaN(x) ? '' : x.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); };
+  function veilleModal(v) {
+    openModal(isEmpty(v.titre) ? T('titre de l\'actualité') : esc(v.titre),
+      `<p class="mb-5 text-sm p-3 rounded-xl bg-[color:var(--violet-l)]">Cette fiche distingue les <strong>obligations légales</strong> (qui s'imposent) des <strong>recommandations</strong> (bonnes pratiques). Elle ne conclut pas à la conformité d'une actualité sans éléments suffisants.</p>` +
+      block('1. Sujet de l\'actualité', isEmpty(v.titre) ? T('sujet') : esc(v.titre) + ` <span class="chip ml-2">${esc(v.categorie)}</span>`, 'newspaper') +
+      block('2. Source', isEmpty(v.source) ? T('nom de la source') : (v.url ? `<a class="underline font-bold text-[color:var(--petrole)]" href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.source)}</a>` : esc(v.source)), 'link') +
+      block('3. Date', isEmpty(v.date) ? T('date de publication') : esc(fmtDate(v.date) || v.date), 'calendar') +
+      block('4. Faits importants', val(v.faits), 'list-checks') + block('5. Enjeux techniques', val(v.enjeux), 'cpu') + block('6. Conséquences pour les organisations', val(v.consequences), 'building-2') +
+      block('7. Cadre réglementaire applicable', `<h4 class="font-bold text-[color:var(--petrole)]">Obligations légales</h4>${val(v.obligations)}<h4 class="font-bold text-[color:var(--petrole)] mt-3">Recommandations (non contraignantes)</h4>${val(v.recommandations)}<p class="text-sm text-[color:var(--muted)]">Cadre de référence du thème : vérifie le texte exact et sa version sur legifrance.gouv.fr, cnil.fr et cyber.gouv.fr.</p>`, 'scale') +
+      block('8. Mon analyse personnelle', val(v.analyse, 'ton analyse'), 'message-square-text'));
+  }
+  function renderVeille() {
+    let cat = 'Toutes', vue = 'cartes';
+    const chips = $('#filtres-veille'), out = $('#veille-liste');
+    const cats = ['Toutes', ...D.categoriesVeille];
+    chips.innerHTML = cats.map(c => `<button class="filter" aria-pressed="${c === cat}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
+    const card = v => `<article class="card card-hover p-5 flex flex-col" data-reveal><div class="flex items-center justify-between gap-2 mb-2"><span class="chip">${esc(v.categorie)}</span><span class="text-sm text-[color:var(--muted)]">${isEmpty(v.date) ? T('date') : esc(fmtDate(v.date) || v.date)}</span></div>
+      <h3 class="font-bold text-lg mb-1">${isEmpty(v.titre) ? T('titre de l\'actualité') : esc(v.titre)}</h3><p class="text-sm mb-4">Source : ${isEmpty(v.source) ? T() : esc(v.source)}</p>
+      <button class="btn btn-ghost mt-auto self-start" data-v="${v.id}">${icon('scale')}Voir l'analyse</button></article>`;
+    const draw = () => {
+      const list = D.veille.filter(v => cat === 'Toutes' || v.categorie === cat);
+      if (vue === 'cartes') out.innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">${list.map(card).join('')}</div>`;
+      else { const sorted = [...list].sort((a, b) => (b.date || '').localeCompare(a.date || '')); /* dates absentes en dernier */
+        const dated = sorted.filter(v => v.date), undated = sorted.filter(v => !v.date);
+        out.innerHTML = `<div class="timeline">${[...dated, ...undated].map(v => `<div class="t-item" data-reveal>${card(v)}</div>`).join('')}</div>`; }
+      refresh();
+    };
+    chips.addEventListener('click', e => { const b = e.target.closest('.filter'); if (!b) return; cat = b.dataset.c; $$('.filter', chips).forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+    $$('[data-vue]').forEach(b => b.addEventListener('click', () => { vue = b.dataset.vue; $$('[data-vue]').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); }));
+    out.addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (b) veilleModal(D.veille.find(v => v.id === b.dataset.v)); });
+    draw();
+  }
+
+  /* ----- Certifications ----- */
+  function renderCertifs() {
+    const ob = $('#certifs-obtenues');
+    ob.innerHTML = D.certificationsObtenues.length ? D.certificationsObtenues.map(c => `
+      <article class="card card-hover overflow-hidden flex flex-col" data-reveal>${visuel(c.image, 'Logo : ' + c.nom, c.nom, 'h-32 text-xl')}
+        <div class="p-5 flex flex-col grow"><h3 class="font-bold text-lg">${esc(c.nom)}</h3><p class="text-sm font-bold text-[color:var(--violet)] mb-2">${esc(c.organisme)}${c.date ? ' · ' + esc(c.date) : ''}</p>
+          <p class="text-sm mb-3">${esc(c.description)}</p><div class="flex flex-wrap gap-1.5 mb-4">${(c.competences || []).map(x => `<span class="chip">${esc(x)}</span>`).join('')}</div>
+          <div class="mt-auto flex flex-wrap gap-3">${c.pdf ? `<a class="btn btn-primary" href="${esc(c.pdf)}" target="_blank" rel="noopener">${icon('file-check')}Certificat</a>` : ''}${c.lien ? `<a class="btn btn-ghost" href="${esc(c.lien)}" target="_blank" rel="noopener">${icon('external-link')}Vérifier</a>` : ''}</div></div></article>`).join('')
+      : `<div class="card p-8 text-center md:col-span-2 lg:col-span-3"><p class="font-bold text-lg mb-1">Aucune certification obtenue renseignée pour l'instant</p><p>Ajoute chaque certification réellement obtenue dans <code>js/data.js</code>, rubrique <code>certificationsObtenues</code> ${T('à compléter')}</p></div>`;
+    $('#certifs-prep').innerHTML = D.certificationsEnPreparation.map(c => `
+      <article class="card p-5" data-reveal><div class="flex items-center justify-between gap-2 mb-2"><span class="ico">${icon('award')}</span>${statut('confirm')}</div>
+        <h3 class="font-bold text-lg">${esc(c.nom)}</h3><p class="text-sm font-bold text-[color:var(--violet)] mb-1">${isEmpty(c.organisme) ? T('organisme') : esc(c.organisme)}</p>
+        <p class="text-sm">${isEmpty(c.description) ? T() : esc(c.description)}</p></article>`).join('');
+  }
+
+  /* ----- Contact ----- */
+  function renderContact() {
+    const row = (ico, label, v, href) => `<li class="flex items-center gap-3"><span class="ico">${icon(ico)}</span><div><p class="font-bold">${label}</p>${isEmpty(v) ? T() : `<a class="underline text-[color:var(--petrole)]" href="${esc(href)}" ${href.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>${esc(v)}</a>`}</div></li>`;
+    $('#coordonnees').innerHTML = row('mail', 'E-mail', C.email, 'mailto:' + C.email) + row('linkedin', 'LinkedIn', C.linkedin, C.linkedin) + row('github', 'GitHub', C.github, C.github);
+    const f = $('#form'), ok = $('#form-ok'), btn = $('#form-btn');
+    const rules = { nom: v => v.trim().length >= 2 || 'Indique ton nom (2 caractères minimum).', email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Indique une adresse e-mail valide.',
+      sujet: v => v.trim().length >= 3 || 'Indique un sujet (3 caractères minimum).', message: v => v.trim().length >= 10 || 'Ton message doit faire au moins 10 caractères.' };
+    const check = n => { const el = f.elements[n]; const r = rules[n](el.value); const err = $('#err-' + n); el.setAttribute('aria-invalid', r !== true); err.textContent = r === true ? '' : r; return r === true; };
+    Object.keys(rules).forEach(n => f.elements[n].addEventListener('blur', () => check(n)));
+    f.addEventListener('submit', async e => {
+      e.preventDefault(); ok.hidden = true;
+      const valid = Object.keys(rules).map(check).every(Boolean); if (!valid) { f.querySelector('[aria-invalid="true"]').focus(); return; }
+      const d = Object.fromEntries(new FormData(f)); btn.disabled = true; btn.innerHTML = '<span class="loader"></span>Envoi…';
+      try {
+        if (C.formEndpoint) { const r = await fetch(C.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(d) }); if (!r.ok) throw new Error('envoi'); ok.innerHTML = `${icon('circle-check')} Merci ${esc(d.nom)}, ton message est bien parti.`; }
+        else if (C.email) { location.href = `mailto:${C.email}?subject=${encodeURIComponent(d.sujet)}&body=${encodeURIComponent(d.message + '\n\n' + d.nom + ' (' + d.email + ')')}`; ok.innerHTML = `${icon('circle-check')} Merci ${esc(d.nom)} : ta messagerie s'ouvre avec le message prêt à envoyer.`; }
+        else ok.innerHTML = `${icon('circle-alert')} Formulaire valide, mais aucune adresse de réception n'est configurée. ${T('renseigne email dans js/data.js')}`;
+        ok.hidden = false; f.reset();
+      } catch { ok.innerHTML = `${icon('circle-alert')} L'envoi a échoué. Réessaie plus tard ou écris directement par e-mail.`; ok.hidden = false; }
+      btn.disabled = false; btn.innerHTML = `${icon('send')}Envoyer le message`; refresh();
+    });
+  }
+
+  /* ---------- Navigation interne (un seul fichier : les « pages » sont des vues) ---------- */
+  const views = $$('.view');
+  function showView(name) {
+    views.forEach(v => { v.hidden = v.dataset.view !== name; });
+    $$('[data-route]').forEach(a => { if (a.dataset.route === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    document.title = TITLES[name] + ' · Esli · Portfolio BTS SIO SISR';
+    if (mm) { mm.hidden = true; burger.setAttribute('aria-expanded', 'false'); }
+    refresh(); onScroll();
+  }
+  function route() {
+    const [r, sub] = (location.hash.slice(1) || 'home').split('/');
+    if (!ROUTES.includes(r)) return;                       // ancre interne : gérée par le clic
+    if (dlg && dlg.open) { dlg.onclose = null; dlg.close(); }
+    const changed = $('.view:not([hidden])')?.dataset.view !== r;
+    showView(r);
+    if (changed) window.scrollTo({ top: 0, behavior: 'auto' });
+    if (r === 'projets' && sub) { const p = D.projets.find(x => x.id === sub); if (p) projetModal(p); }
+  }
+  document.addEventListener('click', e => {                // ancres internes (#parcours-section, #top, #main…)
+    const a = e.target.closest('a[href^="#"]'); if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    if (ROUTES.includes(id.split('/')[0])) return;
+    e.preventDefault();
+    if (id === 'top' || id === '') { window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }); return; }
+    if (id === 'main') { $('#main').focus(); return; }
+    const t = document.getElementById(id); if (!t) return;
+    const v = t.closest('.view'); if (v && v.hidden) showView(v.dataset.view);
+    t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  });
+  window.addEventListener('hashchange', route);
+
+  /* ---------- Démarrage ---------- */
+  [renderHome, renderE5, renderE6, renderProjets, renderVeille, renderCertifs, renderContact].forEach(fn => fn());
+  $('#apercu-projets').addEventListener('click', e => { const b = e.target.closest('[data-projet]'); if (b) location.hash = '#projets/' + b.dataset.projet; });
+  route(); refresh();
+  window.addEventListener('load', refresh); /* au cas où Lucide se charge après */
+})();
+
+</script>
+</body>
+</html>
