@@ -426,7 +426,7 @@ window.CONFIG = {
   cv: 'assets/documents/MON_CV.pdf',
   tableauPdf: 'assets/documents/tableau-synthese.pdf',
   tableauXlsx: 'assets/documents/tableau-synthese-vierge.xlsx',
-  photo: '../assets/images/photo-esli.PNG',
+  // photo: '../assets/images/photo-esli.PNG',
 };
 
 /* Statuts possibles pour une mission : realise | observe | decouvert | confirm (à confirmer) */
@@ -698,7 +698,7 @@ window.DATA = {
 
   /* ----- Accueil ----- */
   function renderHome() {
-    const ph = $('#hero-photo'); if (ph) ph.innerHTML = `<span>${esc(C.prenom.charAt(0))}</span><img src="${esc(C.photo)}" alt="Portrait de ${esc(C.prenom)}" onerror="this.remove()">`;
+    const ph = $('#hero-photo'); if (ph) ph.innerHTML = `<span>${esc(C.prenom.charAt(0))}</span><img src="../assets/images/photo-esli.PNG" alt="Portrait de ${esc(C.prenom)}" onerror="this.remove()">`;
     const legend = `<div class="flex flex-wrap gap-2 mb-5 text-sm items-center"><span class="font-bold mr-1">Statut des missions :</span>${Object.keys(ST).map(statut).join('')}</div>`;
     $('#timeline').innerHTML = legend + `<div class="timeline">${D.experiences.map(x => `
       <article class="t-item" data-reveal>
